@@ -2,8 +2,8 @@ const numbers = document.querySelectorAll('.digits button');
 const operations = document.querySelectorAll('.operations button');
 const decimalBtn = document.getElementById('decimal');
 const cancelBtn = document.querySelectorAll('.cancel button');
-const resultBtn = document.getElementById('result');
 const display = document.getElementById('display');
+
 let currentNumber = '0';
 let newNumber = false;
 let pendingOperation = '';
@@ -47,17 +47,18 @@ function operation(ops) {
         display.value = newNumber;
     } else {
         newNumber = true;
-        if (pendingOperation === '+') {
-            currentNumber += parseFloat(localMemory);
-        } else if (pendingOperation === '-') {
-            currentNumber -= parseFloat(localMemory);
-        } else if (pendingOperation === '*') {
-            currentNumber *= parseFloat(localMemory);
-        } else if (pendingOperation === '/') {
-            currentNumber /= parseFloat(localMemory);
-        } else {
-            currentNumber = parseFloat(localMemory);
-        };
+        switch (pendingOperation) {
+            case '+': currentNumber += parseFloat(localMemory);
+            break;
+            case '-': currentNumber -= parseFloat(localMemory);
+            break;
+            case '*': currentNumber *= parseFloat(localMemory);
+            break;
+            case '/':currentNumber /= parseFloat(localMemory);
+            break;
+            default: currentNumber = parseFloat(localMemory);
+            break;
+        }
 
         display.value = currentNumber;
         pendingOperation = ops;
